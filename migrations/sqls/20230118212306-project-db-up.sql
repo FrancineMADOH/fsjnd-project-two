@@ -1,20 +1,20 @@
 /* Replace with your SQL commands */
 
-CREATE TABLE products(
+CREATE TABLE [IF NOT EXISTS] products(
     id SERIAL PRIMARY KEY,
     productName VARCHAR(100),
     price integer,
     category VARCHAR(100)
 );
 
-CREATE TABLE users(
+CREATE TABLE [IF NOT EXISTS]  users(
     id SERIAL PRIMARY KEY,
     firstName VARCHAR(100),
     lastName VARCHAR(100),
     password VARCHAR(100)
 );
 
-CREATE TABLE orders(
+CREATE TABLE [IF NOT EXISTS] orders(
     id SERIAL PRIMARY KEY,
     productID integer,
     quantity integer,
@@ -22,7 +22,7 @@ CREATE TABLE orders(
     status BOOLEAN
 );
 
-CREATE TABLE categories(
+CREATE TABLE [IF NOT EXISTS] categories(
     id SERIAL PRIMARY KEY,
     category VARCHAR(100)
 );
