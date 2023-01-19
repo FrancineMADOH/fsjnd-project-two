@@ -29,6 +29,8 @@ async index(): Promise<Product[]>{
 //show
 async show(id:number): Promise<Product[]>{
     try {
+        
+        //@ts-ignore
         const conn = await client.connect()
         const sql_command = "SELECT * FROM products WHERE id==($1)";
         const result = await conn.query(sql_command, [id])
@@ -62,7 +64,7 @@ async create(data:Product): Promise<Product>{
     }
 }
 
-//top 5 most popular product
+//top 5 most popular product select count get the greater
 async topfive(): Promise<Product[]>{
     try {
         //@ts-ignore

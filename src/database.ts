@@ -32,3 +32,5 @@ if(ENV ==='test'){
         password:POSTGRES_PASSWORD
     })
 }
+
+export default  client
