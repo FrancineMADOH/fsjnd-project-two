@@ -1,11 +1,12 @@
 import express, {Request, Response} from "express";
+import { categoryHandler } from "../../handlers/categoryHandler";
 
 
 const catRouter = express.Router()
+const methods = new categoryHandler();
 
-catRouter.get("/",(req:Request, res:Response)=>{
-    res.send("category route")
-})
+catRouter.get("/", methods.index)
+catRouter.post("/", methods.create)
 
 
-export default catRouter
+export default catRouter;
