@@ -15,7 +15,7 @@ async index(): Promise<Product[]>{
     try {
         //@ts-ignore
         const conn = await client.connect();
-        const sql_command = "SELECT * FROM products return * "
+        const sql_command = "SELECT * FROM products "
         const result = await conn.query(sql_command);
         conn.release()
 
@@ -27,7 +27,7 @@ async index(): Promise<Product[]>{
 }
 
 //show
-async show(id:number): Promise<Product[]>{
+async show(id:number): Promise<Product>{
     try {
         
         //@ts-ignore

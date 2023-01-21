@@ -13,7 +13,7 @@ export class userStore  {
 async index(): Promise<User[]>{
     try{
         //@ts-ignore
-        const conn = client.connect()
+        const conn = await client.connect()
         const sql_command = "SELECT * FROM users";
         const result = conn.query(sql_command)
         conn.release()
@@ -25,12 +25,13 @@ async index(): Promise<User[]>{
 }
 
 //show
-async show(id:number):Promise<User[]>{
+async show(id:number):Promise<User>{
     try{
         //@ts-ignore
         const conn = client.connect()
         const sql_command = "SELECT * FROM users WHERE id == ($1)";
-        const result = client.query(sql_command,[id])
+        //@ts-ignore
+        const result = conn.query(sql_command,[id])
         conn.release()
 
         return result.rows[0]

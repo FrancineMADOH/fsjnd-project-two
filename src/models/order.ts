@@ -13,13 +13,13 @@ export type Order  = {
 export class orderStore {
 
 //current order by user
-async show(user:number):Promise<Order[]>{
+async show(user:number):Promise<Order>{
     try{
         //@ts-ignore
-        const conn = client.connect()
+        const conn = await client.connect()
         const sql_command = "SELECT * FROM orders WHERE id == ($1)";
         //@ts-ignore
-        const result = client.query(sql_command,[user])
+        const result = conn.query(sql_command,[user])
         conn.release()
 
         return result.rows[0]
@@ -36,7 +36,7 @@ async completed(user:number, status:boolean):Promise<Order[]>{
         const conn = client.connect()
         const sql_command = "SELECT * FROM orders WHERE id == ($1) AND status == ($2) ";
         //@ts-ignore
-        const result = client.query(sql_command,[user,status])
+        const result = conn.query(sql_command,[user,status])
         conn.release()
 
         return result.rows[0]

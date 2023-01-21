@@ -13,7 +13,7 @@ async create(data:Category): Promise<Category>{
     try{
         //@ts-ignore
         const conn = client.connect()
-        const sql_command = "INSERT INTO categories(category) VALUES($1) return *";
+        const sql_command = "INSERT INTO categories(category) VALUES($1)";
         const result = conn.query(sql_command, [category])
         const data = result.rows[0]
 
@@ -34,7 +34,7 @@ async index(): Promise<Category[]>{
 
         return result.rows;
     }catch(err){
-        throw new Error(`Failed to load product catgories. ${err}`)
+        throw new Error(`Failed to load product categories. ${err}`)
     }
 }
 
