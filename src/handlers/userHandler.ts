@@ -7,21 +7,22 @@ const user = new userStore()
 export class userHandler {
 
     async index(req:Request, res:Response){
-        const alluser = user.index()
-        res.json(alluser)
+        const alluser = await user.index()
+        return res.json(alluser)
 
     }
 
     async create(req:Request, res:Response){
         const data = req.body
-        const alluser = user.create(data)
-        res.json(alluser)
+        const newuser = await user.create(data)
+        res.status(201)
+        res.json(newuser)
     }
 
     async show(req:Request, res:Response){
         const id = parseInt(req.params.id)
-        const alluser = user.show(id)
-        res.json(alluser)
+        const oneuser = await user.show(id)
+        res.json(oneuser)
     }
 
 }

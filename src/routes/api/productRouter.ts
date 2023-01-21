@@ -7,8 +7,8 @@ const methods =  new productHandler()
 
 productRouter.get("/",methods.index)
 productRouter.post("/",methods.create)
-productRouter.get("/product",methods.show)
-productRouter.get("/top",methods.topfive)
+productRouter.get("/:id",methods.show)
+productRouter.get("/:category",methods.category)
 
 
 export default productRouter;

@@ -2,7 +2,6 @@
 import client from "../database";
 
 export type Category = {
-    id: number;
     category:string;
 }
 
@@ -12,10 +11,10 @@ async create(data:Category): Promise<Category>{
     const { category } = data;
     try{
         //@ts-ignore
-        const conn = client.connect()
+        const conn = await client.connect()
         const sql_command = "INSERT INTO categories(category) VALUES($1)";
-        const result = conn.query(sql_command, [category])
-        const data = result.rows[0]
+        const result = await conn.query(sql_command, [category])
+        const data = result.rows;
 
         return data;
     }catch(err){
@@ -27,9 +26,9 @@ async create(data:Category): Promise<Category>{
 async index(): Promise<Category[]>{
     try{
         //@ts-ignore
-        const conn = client.connect()
-        const sql_command = "SELECT * FROM categories";
-        const result = conn.query(sql_command)
+        const conn = await client.connect()
+        const sql_command = "SELECT * FROM categories ";
+        const result = await conn.query(sql_command)
         conn.release()
 
         return result.rows;

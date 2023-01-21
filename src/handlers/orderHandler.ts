@@ -13,11 +13,11 @@ export class orderHandler {
     }
 
     async completed(req:Request, res:Response){
-        const status =  Boolean(req.params.status)
         const user = parseInt(req.params.id)
-
-        const completedorders = await order.completed(user,status)
-        res.status(200)
-        res.json(completedorders)
+        const status =  req.params.status as unknown as boolean
+       
+       const completedorders = await order.completed(user,status)
+       res.status(200)
+       res.json(completedorders)
     }
 }

@@ -6,8 +6,8 @@ const orderRouter = express.Router()
 const methods = new orderHandler();
 
 
-orderRouter.get("/", methods.show)
-orderRouter.get("/completed", methods.completed)
+orderRouter.get("/:id", methods.show)
+orderRouter.get("/:id/:status", methods.completed)
 
 
 export default orderRouter;
