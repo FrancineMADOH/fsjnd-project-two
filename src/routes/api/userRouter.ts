@@ -1,14 +1,17 @@
 import express, {Request, Response} from "express";
 import { userHandler } from "../../handlers/userHandler";
+import { verifyToken } from "../../middlewares/authmiddleware";
 
 
 const userRouter = express.Router()
 const methods = new userHandler()
+const token = new verifyToken();
 
-userRouter.get("/",methods.index )
-userRouter.post("/",methods.create)
-//userRouter.get("/:id", methods.show)
-userRouter.get("/signin", methods.signin)
+userRouter.get("/", token.verifyjwt, methods.index )
+userRouter.post("/", token.verifyjwt ,methods.create)
+userRouter.get("/signin", token.verifyjwt , methods.signin)
+userRouter.get("/:id", token.verifyjwt, methods.show)
+
 
 
 export default userRouter;

@@ -1,6 +1,7 @@
 import express, {Request, Response} from "express"
 
 import { userStore, User } from "../models/user"
+import { userauthToken } from "../middlewares/authmiddleware"
 
 const user = new userStore()
 
@@ -17,6 +18,7 @@ export class userHandler {
         const newuser = await user.create(data)
         res.status(201)
         res.json(newuser)
+        //res.json(userauthToken(newuser))
     }
 
     async show(req:Request, res:Response){
@@ -33,7 +35,7 @@ export class userHandler {
         if(!data.username || !data.password) {
             res.status(400);
             res.send(
-              'Missing authentication params'
+              'Missing auth params'
             );
             return false;
           }
@@ -43,7 +45,7 @@ export class userHandler {
             return res.status(401).send(`Wrong credentials for user ${data.username}.`);
           }
         console.log('auth succed !')
-        res.json(data)
+        res.json(userauthToken(data.username) )
     }
 
 }

@@ -2,7 +2,9 @@
 import client from "../database";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken"
+import { userauthToken
+ } from "../middlewares/authmiddleware";
+import jwt, { Secret} from "jsonwebtoken"
 
 dotenv.config()
 
@@ -17,7 +19,7 @@ export type User = {
 const {
   BCRYPT_PASSWORD, 
   SALT_ROUND,
-  SECRET_TOKEN
+  TOKEN 
 } = process.env
 
 export class userStore  {
@@ -79,15 +81,13 @@ async signin(username:string,password:string):Promise<User|null>{
       if(result.rows.length) {
 
       const user = result.rows[0]
-  
       if (bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password)) {
           return user
         }
       }
       conn.release()
   
-      return null
-
+      return null;
     }catch(err){
         throw new Error(`Failed to signin ${err}`)
     }
@@ -97,35 +97,6 @@ async signin(username:string,password:string):Promise<User|null>{
 
 
 
-//       connectionObject.release();
 
-//       return user;
-//     } catch (error) {}
-//   }
-
-//   async signin(details: SigninType) {
-//     try {
-//       console.log(process.env.TOKEN_SECRET);
-//       // return details;
-//       const { email, password } = details;
-
-//       const sql = "SELECT * FROM users WHERE email=($1)";
-//       // @ts-ignore
-//       const conn = await client.connect();
-
-//       const result = await conn.query(sql, [email]);
-
-//       conn.release();
-
-//       const secret: any = process.env.TOKEN_SECRET;
-//       const token = jwt.sign({ user: result }, secret);
-//       const user = result.rows[0].email;
-//       return {
-//         user: user,
-//         token: token,
-//       };
-//     } catch (error) {}
-//   }
-// }
 
 
