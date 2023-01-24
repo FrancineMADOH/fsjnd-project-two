@@ -7,7 +7,8 @@ const methods = new userHandler()
 
 userRouter.get("/",methods.index )
 userRouter.post("/",methods.create)
-userRouter.get("/:id", methods.show)
+//userRouter.get("/:id", methods.show)
+userRouter.get("/signin", methods.signin)
 
 
 export default userRouter;
