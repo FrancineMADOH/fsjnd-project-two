@@ -21,14 +21,14 @@ describe("User store model class", ()=>{
             lastName:"Madoh",
             firstName:"Francine",
             password:"franca123",
-            id:1
+            username:"franca"
         })
 
         expect(result).toEqual({
             lastName:"Madoh",
             firstName:"Francine",
             password:"franca123",
-            id:1
+            username:"franca"
         })
     })
     it("Index method should return a list of users", async()=>{
@@ -38,7 +38,7 @@ describe("User store model class", ()=>{
             lastName:"Madoh",
             firstName:"Francine",
             password:"franca123",
-            id:1
+            username:"franca"
         }])
 
     })
@@ -48,7 +48,7 @@ describe("User store model class", ()=>{
             lastName:"Madoh",
             firstName:"Francine",
             password:"franca123",
-            id:1
+            username:"franca"
         })
     })
     

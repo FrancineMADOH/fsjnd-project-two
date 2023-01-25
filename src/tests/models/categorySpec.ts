@@ -14,12 +14,10 @@ describe("Category store model class", ()=>{
 
     it("Create method should add a category to the categories table", async():Promise<void>=>{
         const result = await store.create({
-            id: 1,
             category:"grocery"
         });
 
         expect(result).toEqual({
-            id:1,
             category:"grocery"
         });
     });
@@ -27,7 +25,6 @@ describe("Category store model class", ()=>{
         const result = await store.index();
 
         expect(result).toEqual([{
-            id:1,
             category:"grocery"
         }]);
     });
