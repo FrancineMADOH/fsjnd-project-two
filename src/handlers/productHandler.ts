@@ -35,6 +35,12 @@ export class productHandler {
         const onecat = await product.category(cat)
         return res.json(onecat)
     }
+
+    async delete(req:Request, res:Response){
+        const id =  parseInt(req.params.id) 
+        const delcat = await product.delete(id)
+        return res.json(delcat)
+    }
 }
 
 

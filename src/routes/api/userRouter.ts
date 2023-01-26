@@ -11,6 +11,8 @@ userRouter.get("/", token.verifyjwt, methods.index )
 userRouter.post("/", token.verifyjwt ,methods.create)
 userRouter.get("/signin", token.verifyjwt , methods.signin)
 userRouter.get("/:id", token.verifyjwt, methods.show)
+userRouter.put("/update", token.verifyjwt, methods.update)
+
 
 
 

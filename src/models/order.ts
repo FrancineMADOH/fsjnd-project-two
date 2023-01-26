@@ -45,4 +45,41 @@ async completed(user:number, status:boolean):Promise<Order[]>{
     }
 }
 
+//create orders
+async create(data:Order): Promise<Order>{
+    const { 
+        quantity,
+        userID,
+        status
+    } = data;
+    try{
+        //@ts-ignore
+        const conn = await client.connect()
+        const sql_command = "INSERT INTO orders VALUES($1,$2,$3)";
+        const result = await conn.query(sql_command, [quantity,userID,status])
+        const data = result.rows[0];
+
+        return data;
+    }catch(err){
+        throw new Error(`Failed to create new user. ${err}`)
+    }
+}
+
+//updates
+async update(user:number,quantity:number): Promise<Order>{
+    
+    try{
+        //@ts-ignore
+        const conn = await client.connect()
+        const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2) ";
+        const result = await conn.query(sql_command, [quantity,user])
+        const data = result.rows[0];
+
+        return data;
+    }catch(err){
+
+        throw new Error(`Failed update orders. ${err}`)
+    }
+}
+
 }

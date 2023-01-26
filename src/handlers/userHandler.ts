@@ -48,4 +48,12 @@ export class userHandler {
         res.json(userauthToken(data.username) )
     }
 
+    async update(req:Request,res:Response){
+      const id = parseInt( req.body.user)
+      const username = req.body.username
+      const updateuser = await user.update(username,id)
+      res.status(200)
+      res.json(updateuser)
+  }
+
 }

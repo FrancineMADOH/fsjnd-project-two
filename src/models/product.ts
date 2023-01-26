@@ -80,5 +80,20 @@ async show(id:number): Promise<Product>{
     }
 }
 
+//delete
+async delete(id:number): Promise<Product>{
+    try{
+        //@ts-ignore
+        const conn = await client.connect();
+        const sql_command = 'DELETE FROM products WHERE id =($1)';
+        const result = await conn.query(sql_command,[id])
+        const delproduct = result.rows[0]
+        conn.release();
+        return delproduct;
+    }catch(err){
+        throw new Error(`Failed to delete product. ${err}`)
+    }
+}
+
 }
 

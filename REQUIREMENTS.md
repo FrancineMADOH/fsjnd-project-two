@@ -5,38 +5,64 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index : `'/api/products' [GET]`
+- Show :  `'/api/products/:id' [GET]`
+- Create [token required]: `'/api/products/' [POST]`
+- [OPTIONAL] Top 5 most popular products :
+- [OPTIONAL] Products by category (args: product category) : `'/api/products/:category' [GET]`
+- Delete [token required]: `'/api/products/:id' [DELETE]`
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required]: `'/api/users'[GET]`
+- Show [token required]: `'/api/users/:id'[GET]`
+- Create [token required]: `'/api/users'[POST]`
+- Auth [token required]: `'/api/users/signin'[GET]`
+- update [token required]: `'/api/users/:id'[PUT]`
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] : `'/api/orders/:id'[GET]`
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] : `'/api/orders/:completed'[GET]`
+- Create : `'/api/orders'[POST]`
+- update : `'/api/orders/:id'[PUT]`
+
+#### Categories
+- Create : `/api/category''[POST]`
+- Index  : `'/api/category'[GET]`
+
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+
+| Column               |  Type              |
+|......................|....................|
+| id                   | SERIAL PRIMARY KEY |
+| name                 | VARCHAR            |
+| price                | INT                |
+| category             | VARCHAR            | 
 
 #### User
-- id
-- firstName
-- lastName
-- password
+
+|    Column             |     Type                  |   
+|.......................|...........................|
+| id                    |  SERIAL PRIMARY KEY       |
+| firstName             |   VARCHAR                 |
+| lastName              |   VARCHAR                 |
+| password              |   VARCHAR                 |
+| username              |   VARCHAR                 |
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
 
+|   Column                                | Type                |
+|.........................................|.....................|
+| id                                      | SERIAL PRIMARY KEY  |
+| id of each product in the order         | INT                 |
+| quantity of each product in the order   | INT                 |
+| user_id                                 | INT                 |
+| status of order (active or complete)    | BOOLEAN             |
+
+### Categories
+
+|     Column            |      Type                   |
+|.......................|.............................|
+|id                     |    SERIAL PRIMARY KEY       |
+|category               |    VARCHAR                  |

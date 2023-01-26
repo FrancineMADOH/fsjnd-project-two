@@ -20,4 +20,20 @@ export class orderHandler {
        res.status(200)
        res.json(completedorders)
     }
+
+    async create(req:Request, res:Response){
+        const data = req.body
+        const neworder = await order.create(data)
+        res.status(201)
+        res.json(neworder)
+        //res.json(userauthToken(newuser))
+    }
+
+    async update(req:Request,res:Response){
+        const user = parseInt( req.body.user)
+        const quantity = parseInt( req.body.quantity)
+        const updateedorder = await order.update(user,quantity) ;
+        res.status(200)
+        res.json(updateedorder)
+    }
 }

@@ -91,6 +91,21 @@ async signin(username:string,password:string):Promise<User|null>{
     }
 }
 
+async update(username:string, id:number):Promise<User>{
+    try{
+        //@ts-ignore
+        const conn = await client.connect()
+        const sql_command = "UPDATE users SET username=($1)  WHERE id = ($2)";
+        //@ts-ignore
+        const result = await conn.query(sql_command,[username, id])
+        conn.release()
+
+        return result.rows[0]
+    }catch(err){
+        throw new Error(`Failed to fetch user with id ${id}. ${err}`)
+    }
+}
+
 }
 
 
