@@ -49,7 +49,7 @@
     
 //     it('Sign users with provided credentials', async () => {
 //         const res = await request.get(`/users/${id}`).set('Auth', 'auth' + auth_token)
-//         //.set('Authorization', 'bearer ' + token);
+//         
     
 //         expect(res.status).toBe(200);
       
