@@ -13,4 +13,12 @@ describe("Test suite for the Category enpoint ", ():void=>{
         
     })
 
+    it("Post new category via index routes", async():Promise<void>=>{
+        const res = await request.post(
+            "/api/category"
+          );
+          expect(res.status).toBe(201);
+        
+    })
+
 })

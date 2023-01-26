@@ -10,7 +10,7 @@ productRouter.get("/",methods.index)
 productRouter.post("/",token.verifyjwt, methods.create)
 productRouter.get("/:category",methods.category)
 productRouter.get("/:id",methods.show)
-productRouter.delete("/:id", methods.delete)
+productRouter.delete("/:id", token.verifyjwt,methods.delete)
 
 
 

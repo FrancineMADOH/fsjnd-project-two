@@ -14,7 +14,7 @@ async create(data:Category): Promise<Category>{
         const conn = await client.connect()
         const sql_command = "INSERT INTO categories(category) VALUES($1)";
         const result = await conn.query(sql_command, [category])
-        const data = result.rows;
+        const data = result.rows[0];
 
         return data;
     }catch(err){
