@@ -4,15 +4,50 @@ Build A Storefront Backend
 The following rest api simulate the backend of a e-commerce website based on 4 models categories, users, orders, products. A list of the enpoints is available in the REQUIREMENTS.md file
 
 ## Environement set up
-- Connect to the postgres database using psql -U postgres and provide your username and password.
-- create a database owned by postgres.using the command CREATE DATABASE store_db WITH ENCODING 'UTF8';
 ### Database 
+
+````
+
+This API use a postgres database connection we then need to create the test and developement database we will run on our local machine. 
+
+Connect to the postgres terminal using `psql -U postgres` (on windows) or `psql postgres` (on other systems) and provide your username and password. 
+Then  create a super user that will connect to your databases and grant him privileges on your database
+
+``` SQL
+CREATE USER store_user WITH PASSWORD 'your_password';
+CREATE DATABASE store_db WITH ENCODING 'UTF8';
+\c store_db;
+GRANT ALL PRIVILEGES ON DATABASE store_db TO store_user;
+CREATE DATABASE store_db_test WITH ENCODING 'UTF8';
+\c store_db_test;
+GRANT ALL PRIVILEGES ON DATABASE store_db_test TO store_user;
+
+```
+
+* Add a `database.json` file in the root of your  project and provide values following this pattern for different environment and to make sure your project will connect to different database depending on the environment.
+
+{
+    "dev":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"store_db",
+        "user":"your-pg-username",
+        "password":"your-pg-password"
+    },
+    "test":{
+        "driver":"pg",
+        "host":"127.0.0.1",
+        "database":"store_db_test",
+        "user":"your-pg-username",
+        "password":"your-pg-username"
+    }
+}
 
 In the root of the project add a .env file and provide values for the following variables:
 
 POSTGRES_HOST="127.0.0.1"
-POSTGRES_DB="project_db"
-POSTGRES_DB="project_db_test"
+POSTGRES_DB="store_db"
+POSTGRES_DB="store_db_test"
 POSTGRES_USER="your pg username"
 POSTGRES_PASSWORD="your pg password"
 ENV=dev
@@ -28,28 +63,8 @@ TOKEN=add-a-token-of-your-choice
 * Set up your database by running   `npm run up` you can get acces to the database by signin in with your credential in the command line
 * Build the app by running `npm run build`
 
-## Test Script
 
-* Add a database.json file in the root of your  project and provide values following this pattern for different environment
-
-{
-    "dev":{
-        "driver":"pg",
-        "host":"127.0.0.1",
-        "database":"project_db",
-        "user":"your-pg-username",
-        "password":"your-pg-password"
-    },
-    "test":{
-        "driver":"pg",
-        "host":"127.0.0.1",
-        "database":"project_db_test",
-        "user":"your-pg-username",
-        "password":"your-pg-username"
-    }
-}
-
-### Dev Scripts
+###  Scripts
 
 * Build the project by running `npm run build`
 
