@@ -10,11 +10,11 @@ const {
     POSTGRES_USER,
     POSTGRES_PASSWORD,
     ENV
-} = process.env
+} = process.env;
 
-console.log(ENV)
+console.log(ENV);
 
-let client 
+let client ;
 
 if(ENV ==='dev'){
     client =  new Pool({

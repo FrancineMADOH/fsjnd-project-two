@@ -9,6 +9,7 @@ import jwt, { Secret} from "jsonwebtoken"
 dotenv.config()
 
 export type User = {
+    id?:number
     firstName : string;
     lastName :string ;
     password :string ;

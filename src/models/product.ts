@@ -2,14 +2,13 @@
 import client from "../database";
 
 export type Product = {
-    //id: number  ;
+    id?: number  ;
     productName: string;
     price: number ;
     category: number; 
 }
 
 export class productStore {
-
 //index
 async index(): Promise<Product[]>{
     try {
@@ -49,7 +48,7 @@ async create(data:Product): Promise<Product>{
 }
 
 //products by category
-async category(name:string): Promise<Product[]>{
+async category(name:number): Promise<Product[]>{
     try {
         //@ts-ignore
         const conn = await client.connect()

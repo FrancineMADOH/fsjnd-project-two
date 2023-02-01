@@ -13,7 +13,7 @@ class categoryStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "INSERT INTO categories(category) VALUES($1)";
+            const sql_command = "INSERT INTO categories(category) VALUES($1);";
             const result = await conn.query(sql_command, [category]);
             const data = result.rows[0];
             return data;
@@ -27,7 +27,7 @@ class categoryStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "SELECT * FROM categories ";
+            const sql_command = "SELECT * FROM categories; ";
             const result = await conn.query(sql_command);
             conn.release();
             return result.rows;

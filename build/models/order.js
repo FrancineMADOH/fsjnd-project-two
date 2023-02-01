@@ -12,7 +12,7 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1)";
+            const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1);";
             //@ts-ignore
             const result = await conn.query(sql_command, [user]);
             conn.release();
@@ -27,7 +27,7 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1) AND orders.status = ($2) ";
+            const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1) AND orders.status = ($2) ;";
             //@ts-ignore
             const result = await conn.query(sql_command, [user, status]);
             conn.release();
@@ -39,12 +39,12 @@ class orderStore {
     }
     //create orders
     async create(data) {
-        const { quantity, userID, status } = data;
+        const { productID, quantity, userID, status } = data;
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "INSERT INTO orders VALUES($1,$2,$3)";
-            const result = await conn.query(sql_command, [quantity, userID, status]);
+            const sql_command = "INSERT INTO orders VALUES($1,$2,$3) ;";
+            const result = await conn.query(sql_command, [productID, quantity, userID, status]);
             const data = result.rows[0];
             return data;
         }
@@ -57,7 +57,7 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2) ";
+            const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2); ";
             const result = await conn.query(sql_command, [quantity, user]);
             const data = result.rows[0];
             return data;

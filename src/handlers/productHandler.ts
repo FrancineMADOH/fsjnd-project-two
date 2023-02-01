@@ -31,7 +31,7 @@ export class productHandler {
     }
 
     async category(req:Request, res:Response){
-        const cat =  req.params.category
+        const cat =  parseInt(req.params.category) 
         const onecat = await product.category(cat)
         return res.json(onecat)
     }

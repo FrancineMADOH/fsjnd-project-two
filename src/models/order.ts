@@ -3,8 +3,7 @@
 import client from "../database";
 
 export type Order  = {
-
-    id:number ; 
+    id?:number ; 
     productID : number;
     quantity: number; 
     userID : number;
@@ -17,7 +16,7 @@ async show(user:number):Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1)";
+        const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1);";
         //@ts-ignore
         const result = await conn.query(sql_command,[user])
         conn.release()
@@ -34,7 +33,7 @@ async completed(user:number, status:boolean):Promise<Order[]>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1) AND orders.status = ($2) ";
+        const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1) AND orders.status = ($2) ;";
         //@ts-ignore
         const result = await conn.query(sql_command,[user,status])
         conn.release()
@@ -47,16 +46,17 @@ async completed(user:number, status:boolean):Promise<Order[]>{
 
 //create orders
 async create(data:Order): Promise<Order>{
-    const { 
-        quantity,
-        userID,
-        status
+    const {   
+    productID ,
+    quantity ,
+    userID ,
+    status 
     } = data;
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO orders VALUES($1,$2,$3)";
-        const result = await conn.query(sql_command, [quantity,userID,status])
+        const sql_command = "INSERT INTO orders VALUES($1,$2,$3) ;";
+        const result = await conn.query(sql_command, [productID,quantity,userID,status])
         const data = result.rows[0];
 
         return data;
@@ -71,7 +71,7 @@ async update(user:number,quantity:number): Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2) ";
+        const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2); ";
         const result = await conn.query(sql_command, [quantity,user])
         const data = result.rows[0];
 
