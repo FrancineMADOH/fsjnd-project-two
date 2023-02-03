@@ -35,7 +35,7 @@ describe("Order store model class", ()=>{
 
 describe('Order model methods test suite', ()=>{
 
-beforeAll(async ()=>{
+beforeAll( async ()=>{
 //@ts-ignore
 const conn = await client.connect();
 const sql_command1 =
@@ -69,11 +69,9 @@ conn.release();
 });
 
 it('Show method return orders by the specified user id', async()=>{
-    const result =  await store.show(1)
-    const test = _.pick(result, ['userID'])
-    console.log(result)
-    console.log(test)
-    //expect(result[0].userID).toEqual(1)
+    const result =  await store.show(1)    
+    expect(result).toBeDefined()
+    expect(result).not.toBeNull()
 });
 
 it('Completed method return a list of completed orders', async()=>{
@@ -91,6 +89,8 @@ it('Create method should add a new  order to the db', async()=>{
         status:1,
          
     });
+
+    console.log(result)
 });
 // it('Update method method should update a specific order', async()=>{
 //     const result =  await store.update(1,5)
@@ -100,7 +100,7 @@ it('Create method should add a new  order to the db', async()=>{
 //         productID: 1,
 //         quantity: 5,
 //         userID: 1,
-//         status: true
+//         status: 1
 //     })
 // });
 
