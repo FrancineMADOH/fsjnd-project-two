@@ -20,7 +20,6 @@ class verifyToken {
         }
         try {
             const authToken = req.headers.authorization.split(' ')[1];
-            console.log(authToken);
             jsonwebtoken_1.default.verify(authToken, TOKEN);
             next();
         }

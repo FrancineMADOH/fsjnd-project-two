@@ -7,7 +7,7 @@ export type Order  = {
     productID : number;
     quantity: number; 
     userID : number;
-    status:boolean ; 
+    status:number ; 
 }
 export class orderStore {
 
@@ -16,7 +16,7 @@ async show(user:number):Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1);";
+        const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1);";
         //@ts-ignore
         const result = await conn.query(sql_command,[user])
         conn.release()
@@ -38,7 +38,7 @@ async completed(user:number, status:boolean):Promise<Order[]>{
         const result = await conn.query(sql_command,[user,status])
         conn.release()
 
-        return result.rows[0]
+        return result.rows
     } catch(err){
         throw new Error(`Failed to fetch orders with status ${status}. ${err}`)
     }
@@ -55,13 +55,13 @@ async create(data:Order): Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO orders VALUES($1,$2,$3) ;";
+        const sql_command = "INSERT INTO orders VALUES($1,$2,$3,$4) ;";
         const result = await conn.query(sql_command, [productID,quantity,userID,status])
         const data = result.rows[0];
 
         return data;
     }catch(err){
-        throw new Error(`Failed to create new user. ${err}`)
+        throw new Error(`Failed to create new order. ${err}`)
     }
 }
 
@@ -71,7 +71,7 @@ async update(user:number,quantity:number): Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2); ";
+        const sql_command = "UPDATE orders SET quantity=($1) WHERE userID=($2); ";
         const result = await conn.query(sql_command, [quantity,user])
         const data = result.rows[0];
 

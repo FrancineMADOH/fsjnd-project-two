@@ -2,6 +2,7 @@ import { User } from "../../models/user";
 import { Product } from "../../models/product";
 import { Order } from "../../models/order";
 import { Category } from "../../models/category";
+import { userauthToken, verifyToken } from "../../middlewares/authmiddleware";
 import _ from 'lodash';
 
 
@@ -9,16 +10,15 @@ import _ from 'lodash';
 export const users: User[] = [
     {
         
-        firstName: "Francine",
-        lastName: "Madoh",
+        firstname: "Francine",
+        lastname: "Madoh",
         password: "franca123",
         username: "franca"
     },
 
     {
-
-        firstName: "Francine",
-        lastName: "Ludovic",
+        firstname: "Francine",
+        lastname: "Ludovic",
         password: "Ludovic",
         username: "franca"
     }
@@ -29,7 +29,7 @@ export const users: User[] = [
 export const  indexedUsers =  users.map((user,i) =>{
     return {
         id: i + 1,
-        ..._.pick(user, ['lastName', 'firstName','username'])
+        ..._.pick(user, ['lastname', 'firstname','username'])
     }
 });
 
@@ -38,21 +38,21 @@ export const  indexedUsers =  users.map((user,i) =>{
 export const products: Product[] = [
     {
         id:1,
-        productName: "Madar",
+        productname: "Madar",
         price: 50,
         category: 1
     },
 
     {
         id:2,
-        productName: "Neima",
+        productname: "Neima",
         price: 100,
         category: 2,
     },
 
 ];
-export const indexedProducts = products.map((product,i)=>{
-    product.id = i + 1;
+export const indexedProducts = products.map((product,index)=>{
+    product.id = index + 1;
     return product;
 });
 
@@ -69,7 +69,7 @@ export const orders: Order[] = [
         productID: 1,
         quantity: 2,
         userID: 1,
-        status: true
+        status: 1
     },
 
     {
@@ -77,7 +77,7 @@ export const orders: Order[] = [
         productID: 2,
         quantity: 2,
         userID: 1,
-        status: true
+        status: 1
     },
 
 ];
@@ -88,7 +88,7 @@ export const indexedOrders = orders.map((order,i)=>{
 });
 
 export const completedOrders =  orders.filter((order,i)=>{
-    order.status == true
+    order.status == 1
     return order;
 })
 
@@ -108,13 +108,18 @@ export const indexedCategories = categories.map((cat,index)=>{
     cat.id = index + 1;
     return cat;
 
-})
-// export const  indexedCategories =  categories.map((user,i) =>{
-//     return {
-//         id: i + 1,
-//         ..._.pick(user, ['category'])
-//     }
-// });
+});
+
+//create a test token to test authentication
+
+export const  testToken =  userauthToken({
+        
+    firstname: "Francine",
+    lastname: "Madoh",
+    password: "franca123",
+    username: "franca"
+});
+
 
 
 

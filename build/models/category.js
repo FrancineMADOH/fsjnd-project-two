@@ -8,14 +8,15 @@ exports.categoryStore = void 0;
 const database_1 = __importDefault(require("../database"));
 class categoryStore {
     //create 
-    async create(data) {
-        const { category } = data;
+    async create(c) {
+        //const { category } = data;
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
             const sql_command = "INSERT INTO categories(category) VALUES($1);";
-            const result = await conn.query(sql_command, [category]);
-            const data = result.rows[0];
+            const result = await conn.query(sql_command, [c.category]);
+            const data = result.rows;
+            conn.release();
             return data;
         }
         catch (err) {

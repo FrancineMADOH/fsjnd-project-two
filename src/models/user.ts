@@ -10,8 +10,8 @@ dotenv.config()
 
 export type User = {
     id?:number
-    firstName : string;
-    lastName :string ;
+    firstname : string;
+    lastname :string ;
     password :string ;
     username:string;
 }
@@ -55,15 +55,17 @@ async show(id:number):Promise<User>{
 
 //create
 async create(data:User): Promise<User>{
-    const { firstName,lastName,password,username } = data;
+    const { firstname,lastname,password,username } = data;
     try{
         const hashed_pw =  bcrypt.hashSync(password + BCRYPT_PASSWORD, parseInt(SALT_ROUND as string))
         //@ts-ignore
         const conn = await client.connect()
         const sql_command = "INSERT INTO users(firstName,lastName,password,username) VALUES($1,$2,$3,$4)";
-        const result = await conn.query(sql_command, [firstName,lastName,hashed_pw,username])
-        const data = result.rows[0]
+        //@ts-ignore
+        const result = await conn.query(sql_command, [firstname,lastname,hashed_pw,username])
+        // const data = result.rows
         conn.release()
+        const data = result.rows
 
         return data;
     }catch(err){
@@ -96,14 +98,15 @@ async update(username:string, id:number):Promise<User>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "UPDATE users SET username=($1)  WHERE id = ($2)";
+        const sql_command = "UPDATE users SET username=($1)  WHERE id = ($2);";
         //@ts-ignore
         const result = await conn.query(sql_command,[username, id])
+        const data = result.rows
         conn.release()
 
-        return result.rows[0]
+        return data;
     }catch(err){
-        throw new Error(`Failed to fetch user with id ${id}. ${err}`)
+        throw new Error(`Failed to update user with id ${id}. ${err}`)
     }
 }
 

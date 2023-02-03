@@ -12,10 +12,11 @@ class productStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "SELECT * FROM products ";
+            const sql_command = "SELECT * FROM products; ";
             const result = await conn.query(sql_command);
             conn.release();
-            return result.rows;
+            const data = result.rows;
+            return data;
         }
         catch (err) {
             throw new Error(`cannot get ${err}`);
@@ -23,14 +24,14 @@ class productStore {
     }
     //create
     async create(data) {
-        const { productName, price, category } = data;
+        const { productname, price, category } = data;
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "INSERT INTO products(productName, price,category) VALUES($1,$2,$3)";
-            const result = await conn.query(sql_command, [productName, price, category]);
-            conn.release();
+            const sql_command = "INSERT INTO products(productName,price,category) VALUES($1,$2,$3);";
+            const result = await conn.query(sql_command, [productname, price, category]);
             const data = result.rows[0];
+            conn.release();
             return data;
         }
         catch (err) {

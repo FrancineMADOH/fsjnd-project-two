@@ -3,7 +3,7 @@ import client from "../database";
 
 export type Product = {
     id?: number  ;
-    productName: string;
+    productname: string;
     price: number ;
     category: number; 
 }
@@ -14,11 +14,11 @@ async index(): Promise<Product[]>{
     try {
         //@ts-ignore
         const conn = await client.connect();
-        const sql_command = "SELECT * FROM products "
+        const sql_command = "SELECT * FROM products; "
         const result = await conn.query(sql_command);
         conn.release()
-
-        return result.rows;
+        const data =  result.rows;
+        return data;
 
     }catch(err){
         throw new Error(`cannot get ${err}`);
@@ -29,18 +29,18 @@ async index(): Promise<Product[]>{
 //create
 async create(data:Product): Promise<Product>{
     const {
-        productName,
+        productname,
         price,
         category
     } = data;
     try {
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO products(productName, price,category) VALUES($1,$2,$3)";
-        const result = await conn.query(sql_command, [productName,price,category])
-        conn.release()
+        const sql_command = "INSERT INTO products(productName,price,category) VALUES($1,$2,$3);";
+        const result = await conn.query(sql_command, [productname,price,category])
         const data = result.rows[0];
-        return data
+        conn.release()
+        return data;
         
     }catch(err){
         throw new Error (`Failed to create product: ${err}`)

@@ -1,59 +1,61 @@
-// import supertest from "supertest"
-// import app from "../../server"
-// import dotenv from "dotenv";
-// import jwt, { Secret } from "jsonwebtoken"
-// import { userStore, User } from "../../models/user"
-// const request = supertest(app)
+import supertest from "supertest";
+import app from "../../server";
+import dotenv from "dotenv";
+import jwt, { Secret } from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { userStore, User } from "../../models/user";
+import { users, indexedUsers,testToken } from "../models/testsData";
+import { verifyToken } from "../../middlewares/authmiddleware";
+import _ from 'lodash';
+const request = supertest(app);
 
-// dotenv.config()
 
-// const token = process.env.TOKEN as Secret;
+dotenv.config()
 
-// describe("Test suite for the Users enpoint ", ():void=>{
-//     const user:User = {
-//             lastName:"Madoh",
-//             firstName:"Francine",
-//             password:"franca123",
-//             username:"franca"
-//     }
+const token = process.env.TOKEN as Secret;
+const  peper  = process.env.BCRYPT_PASSWORD;
 
-//     let auth_token: string,
-//     id = 1;
+describe("Test suite for the Users enpoint ", ():void=>{
+    const user:User = {
+            lastname:"Madoh",
+            firstname:"Francine",
+            password:"franca123",
+            username:"franca"
+    }
 
-//     it("Get the users api index routes", async():Promise<void>=>{
-//         const res = await request.get(
-//             "/api/users"
-//           );
-//           expect(res.status).toBe(200);
+
+    it("It shoud required autorization", async():Promise<void>=>{
+        const res = await request.get(
+            "/api/users"
+          );
+          expect(res.status).toBe(401);
         
-//     })
+    });
 
-//     it("Get the  create user api route", async():Promise<void>=>{
-//         const res = await request.post(
-//             "/api/users"
-//           ).send(user);
-//          // @ts-ignore
-//          const { data } = jwt.verify(auth_token, token);
-//         id = data.id;
-//         expect(res.status).toBe(200);
-        
-//     })
+    it("It shoud add a new user", async():Promise<void>=>{
+        const res = await request.post(
+            "/api/users"
+          ).set('Authorization', `Bearer ${testToken}`).send(users[0])
+          expect(res.status).toBe(201);
+    });
 
-//     it('should get the show user api route', async (done) => {
-//         const res = await request.get(`/users/${id}`).set('Auth', 'auth' + auth_token)
-//         //.set('Authorization', 'bearer ' + token);
+    it('Should return the specified user', async ():Promise<void> => {
+        const res = await request.get(`/api/users/${1}`)
+        .set('Authorization', `Bearer ${testToken}`).send()
+        expect(res.status).toBe(200);
+      });
     
-//         expect(res.status).toBe(200);
-//         done();
-//       });
-    
-//     it('Sign users with provided credentials', async () => {
-//         const res = await request.get(`/users/${id}`).set('Auth', 'auth' + auth_token)
-//         
-    
-//         expect(res.status).toBe(200);
+    // it('Sign users with provided credentials', async () => {
+    //     const res = await request.get(`/api/users/${1}`)
+    //     .set('Authorization', `Bearer ${testToken}`).send()
+    //     console.log(res.body)
+    //     console.log(user.password+peper)
+
+    //     const matchinPW =  bcrypt.compareSync(user.password+peper, res.body.password)
+    //     expect(matchinPW).toBe(true)
+    //     expect(res.status).toBe(200);
       
-//       });
+    //   });
 
-// })
+})
 

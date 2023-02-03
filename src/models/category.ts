@@ -8,15 +8,15 @@ export type Category = {
 
 export class categoryStore {
 //create 
-async create(data:Category): Promise<Category>{
-    const { category } = data;
+async create(c:Category): Promise<Category>{
+    //const { category } = data;
     try{
         //@ts-ignore
         const conn = await client.connect()
         const sql_command = "INSERT INTO categories(category) VALUES($1);";
-        const result = await conn.query(sql_command, [category])
-        const data = result.rows[0];
-
+        const result = await conn.query(sql_command,[c.category])
+        const data = result.rows;
+        conn.release()
         return data;
     }catch(err){
         throw new Error(`Failed to insert new category. ${err}`)

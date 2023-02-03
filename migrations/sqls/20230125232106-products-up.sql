@@ -4,5 +4,5 @@ CREATE TABLE products(
     id SERIAL PRIMARY KEY,
     productName VARCHAR(100),
     price integer,
-    category VARCHAR(100)
+    category integer
 );

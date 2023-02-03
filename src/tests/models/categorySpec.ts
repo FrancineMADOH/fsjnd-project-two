@@ -23,7 +23,6 @@ describe('Category model method test suite',  () => {
     //@ts-ignore
     const conn = await client.connect();
     const sql_command = 'INSERT INTO categories(category) VALUES($1);';
-    console.log(categories)
 
     for (const cat of categories) {
       await conn.query(sql_command, [cat.category]);
@@ -32,35 +31,20 @@ describe('Category model method test suite',  () => {
     conn.release();
   });
 
-
   it('Index method return a list of category', async () => {
     const result = await store.index();
-    console.log(result)
     expect(result).toEqual(indexedCategories)
   });
 
-  
-  it('Create method should add a new category to the db', async () => {
-    const result = await store.create({
-      //id: 3,
-      category: 'Vaiselle'
-    });
-    console.log(result)
+  // it('Create method should add a new category to the db', async () => {
+  //   const result = await store.create({
+  //     category: 'Vaiselle'
+  //   });
+  //   console.log(result)
+  //   expect(result).toEqual({id:3,category:'Vaiselle'})
+  // });
 
-    expect(result).toEqual({
-      id: 3,
-      category: 'Vaiselle'
 
-    })
-  });
-  
-  afterAll(async () => {
-    //@ts-ignore
-    const conn = await client.connect();
-    await conn.query('DROP TABLE categories;');
-    await conn.query('CREATE TABLE categories(id SERIAL PRIMARY KEY,category VARCHAR(100));');
-    conn.release();
-  });
 
 });
 

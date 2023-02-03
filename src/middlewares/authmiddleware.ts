@@ -20,7 +20,6 @@ export class verifyToken{
       }
         try{
             const authToken = req.headers.authorization.split(' ')[1];
-            console.log(authToken)
             jwt.verify(authToken, TOKEN);
             next();
         }catch(err){

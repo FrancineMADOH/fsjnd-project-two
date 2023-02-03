@@ -12,7 +12,7 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "SELECT * FROM users INNER JOIN orders ON users.id = orders.userID WHERE users.id = ($1);";
+            const sql_command = "SELECT * FROM orders INNER JOIN users ON users.id = orders.userID WHERE users.id = ($1);";
             //@ts-ignore
             const result = await conn.query(sql_command, [user]);
             conn.release();
@@ -31,7 +31,7 @@ class orderStore {
             //@ts-ignore
             const result = await conn.query(sql_command, [user, status]);
             conn.release();
-            return result.rows[0];
+            return result.rows;
         }
         catch (err) {
             throw new Error(`Failed to fetch orders with status ${status}. ${err}`);
@@ -43,13 +43,13 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "INSERT INTO orders VALUES($1,$2,$3) ;";
+            const sql_command = "INSERT INTO orders VALUES($1,$2,$3,$4) ;";
             const result = await conn.query(sql_command, [productID, quantity, userID, status]);
             const data = result.rows[0];
             return data;
         }
         catch (err) {
-            throw new Error(`Failed to create new user. ${err}`);
+            throw new Error(`Failed to create new order. ${err}`);
         }
     }
     //updates
@@ -57,7 +57,7 @@ class orderStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = " UPDATE orders SET quantity=($1) WHERE userID=($2); ";
+            const sql_command = "UPDATE orders SET quantity=($1) WHERE userID=($2); ";
             const result = await conn.query(sql_command, [quantity, user]);
             const data = result.rows[0];
             return data;

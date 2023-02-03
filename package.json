@@ -11,9 +11,10 @@
     "up": "db-migrate up",
     "down": "db-migrate down",
     "jasmine": "jasmine",
-    "test": "db-migrate --env test up && ENV=test jasmine --config jasmine.json || db-migrate --env test down"
+    "test": " db-migrate reset --env test && db-migrate --env test up && jasmine",
+    "test1": "db-migrate --env test up && ENV=test jasmine --config jasmine.json || db-migrate --env test down"
   },
-  "author": "francinemadoh@gmail.com",
+  "author": "Udacity",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
