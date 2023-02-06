@@ -10,7 +10,7 @@
     "build": "npx tsc",
     "up": "db-migrate up",
     "down": "db-migrate down",
-    "test": " db-migrate reset --env test && db-migrate --env test up && jasmine"
+    "test": "npx tsc && db-migrate reset --env test && db-migrate --env test up && jasmine"
   },
   "author": "Udacity",
   "license": "ISC",

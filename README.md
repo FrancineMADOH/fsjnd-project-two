@@ -64,11 +64,13 @@ TOKEN=add-a-token-of-your-choice
 * Build the app by running `npm run build`
 
 
-###  Scripts
+###  Build Scripts
 
 * Build the project by running `npm run build`
 
-* `npm run jasmine` command will  run all the test This will build the project before performing the tests.
+### Tests Scripts
+
+* `npm run test` command will build the project run all the test related to models and handlers.
 
 * Launch the project on port 3000 by running `npm run start` all the endpoint are documented in the requirements.txt file. to acces products route for example `http://localhost:3000/api/products` will get all the available product for you
 
