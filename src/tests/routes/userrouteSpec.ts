@@ -24,7 +24,7 @@ describe("Test suite for the Users enpoint ", ():void=>{
     }
 
 
-    it("It shoud required autorization", async():Promise<void>=>{
+    it("It should required autorization", async():Promise<void>=>{
         const res = await request.get(
             "/api/users"
           );
@@ -32,7 +32,7 @@ describe("Test suite for the Users enpoint ", ():void=>{
         
     });
 
-    it("It shoud add a new user", async():Promise<void>=>{
+    it("It should add a new user", async():Promise<void>=>{
         const res = await request.post(
             "/api/users"
           ).set('Authorization', `Bearer ${testToken}`).send(users[0])
@@ -45,17 +45,15 @@ describe("Test suite for the Users enpoint ", ():void=>{
         expect(res.status).toBe(200);
       });
     
-    // it('Sign users with provided credentials', async () => {
-    //     const res = await request.get(`/api/users/${1}`)
-    //     .set('Authorization', `Bearer ${testToken}`).send()
-    //     console.log(res.body)
-    //     console.log(user.password+peper)
+    it('Sign users with provided credentials', async () => {
+        const res = await request.get(`/api/users/${1}`)
+        .set('Authorization', `Bearer ${testToken}`).send()
 
-    //     const matchinPW =  bcrypt.compareSync(user.password+peper, res.body.password)
-    //     expect(matchinPW).toBe(true)
-    //     expect(res.status).toBe(200);
+        const matchinPW =  bcrypt.compareSync(user.password+peper, res.body.password)
+        expect(matchinPW).toBe(true)
+        expect(res.status).toBe(200);
       
-    //   });
+      });
 
 })
 
