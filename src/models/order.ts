@@ -55,7 +55,7 @@ async create(data:Order): Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO orders VALUES($1,$2,$3,$4);";
+        const sql_command = "INSERT INTO orders VALUES($1,$2,$3,$4) RETURNING *;";
         const result = await conn.query(sql_command, [productID,quantity,userID,status])
         const data = result.rows[0];
         conn.release()
@@ -71,7 +71,7 @@ async update(user:number,quantity:number): Promise<Order>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "UPDATE orders SET quantity=($1) WHERE userID=($2); ";
+        const sql_command = "UPDATE orders SET quantity=($1) WHERE userID=($2) RETURNING quantity; ";
         const result = await conn.query(sql_command, [quantity,user])
         const data = result.rows[0];
         conn.release()

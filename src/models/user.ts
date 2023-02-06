@@ -27,7 +27,7 @@ async index(): Promise<User[]>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "SELECT * FROM users";
+        const sql_command = "SELECT * FROM users;";
         const result = await conn.query(sql_command)
         conn.release()
 
@@ -42,30 +42,30 @@ async show(id:number):Promise<User>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "SELECT * FROM users WHERE id = ($1)";
+        const sql_command = "SELECT * FROM users WHERE id=($1);";
         //@ts-ignore
         const result = await conn.query(sql_command,[id])
         conn.release()
 
-        return result.rows
+        return result.rows[0]
     }catch(err){
         throw new Error(`Failed to fetch user with id ${id}. ${err}`)
     }
 }
 
-//create
+// //create
 async create(data:User): Promise<User>{
     const { firstname,lastname,password,username } = data;
     try{
         const hashed_pw =  bcrypt.hashSync(password + BCRYPT_PASSWORD, parseInt(SALT_ROUND as string))
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO users(firstName,lastName,password,username) VALUES($1,$2,$3,$4)";
+        const sql_command = "INSERT INTO users(firstName,lastName,password,username) VALUES($1,$2,$3,$4) RETURNING *;";
         //@ts-ignore
         const result = await conn.query(sql_command, [firstname,lastname,hashed_pw,username])
         // const data = result.rows
         conn.release()
-        const data = result.rows
+        const data = result.rows[0]
 
         return data;
     }catch(err){
@@ -98,10 +98,10 @@ async update(username:string, id:number):Promise<User>{
     try{
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "UPDATE users SET username=($1)  WHERE id = ($2);";
+        const sql_command = "UPDATE users SET username=($1)  WHERE id = ($2) RETURNING username;";
         //@ts-ignore
         const result = await conn.query(sql_command,[username, id])
-        const data = result.rows
+        const data = result.rows[0]
         conn.release()
 
         return data;

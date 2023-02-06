@@ -36,7 +36,7 @@ async create(data:Product): Promise<Product>{
     try {
         //@ts-ignore
         const conn = await client.connect()
-        const sql_command = "INSERT INTO products(productName,price,category) VALUES($1,$2,$3);";
+        const sql_command = "INSERT INTO products(productName,price,category) VALUES($1,$2,$3) RETURNING *;";
         const result = await conn.query(sql_command, [productname,price,category])
         const data = result.rows[0];
         conn.release()
@@ -84,7 +84,7 @@ async delete(id:number): Promise<Product>{
     try{
         //@ts-ignore
         const conn = await client.connect();
-        const sql_command = 'DELETE FROM products WHERE id =($1)';
+        const sql_command = 'DELETE FROM products WHERE id =($1) RETURNING id;';
         const result = await conn.query(sql_command,[id])
         const delproduct = result.rows[0]
         conn.release();

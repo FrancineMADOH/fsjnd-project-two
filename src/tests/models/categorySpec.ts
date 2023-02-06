@@ -36,13 +36,21 @@ describe('Category model method test suite',  () => {
     expect(result).toEqual(indexedCategories)
   });
 
-  // it('Create method should add a new category to the db', async () => {
-  //   const result = await store.create({
-  //     category: 'Vaiselle'
-  //   });
-  //   console.log(result)
-  //   expect(result).toEqual({id:3,category:'Vaiselle'})
-  // });
+  it('Create method should add a new category to the db', async () => {
+    const result = await store.create({
+      category: 'Vaiselle'
+    });
+    expect(result).toEqual({id:3,category:'Vaiselle'})
+  });
+
+  afterAll(async()=>{
+    //@ts-ignore
+    const conn = await client.connect();
+    await conn.query('DELETE FROM categories;')
+    await conn.query('ALTER SEQUENCE categories_id_seq RESTART WITH 1; ')
+    conn.release();
+
+});
 
 
 

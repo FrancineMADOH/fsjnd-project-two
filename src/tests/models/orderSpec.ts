@@ -89,20 +89,17 @@ it('Create method should add a new  order to the db', async()=>{
         status:1,
          
     });
-
-    console.log(result)
+    expect(result).toBeDefined()
+    expect(result).not.toBeNull()
+    expect(result.id).toBe(3)
 });
-// it('Update method method should update a specific order', async()=>{
-//     const result =  await store.update(1,5)
 
-//     expect(result).toEqual({
-//         id:1,
-//         productID: 1,
-//         quantity: 5,
-//         userID: 1,
-//         status: 1
-//     })
-// });
+
+it('Update method method should update a specific order', async()=>{
+    const result =  await store.update(1,5)
+    expect(result.quantity).toEqual(5)
+    
+});
 
 afterAll(async()=>{
     //@ts-ignore

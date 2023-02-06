@@ -13,9 +13,9 @@ class categoryStore {
         try {
             //@ts-ignore
             const conn = await database_1.default.connect();
-            const sql_command = "INSERT INTO categories(category) VALUES($1);";
+            const sql_command = "INSERT INTO categories(category) VALUES($1) RETURNING *;";
             const result = await conn.query(sql_command, [c.category]);
-            const data = result.rows;
+            const data = result.rows[0];
             conn.release();
             return data;
         }
