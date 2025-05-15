@@ -12,7 +12,7 @@
     "down": "db-migrate down",
     "test": "npx tsc && db-migrate reset --env test && db-migrate --env test up && jasmine"
   },
-  "author": "Udacity",
+  "author": "francinemadoh@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -24,7 +24,9 @@
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "pg": "^8.5.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -39,6 +41,8 @@
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
-    "tsc-watch": "^4.2.9"
+    "tsc-watch": "^4.2.9",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8"
   }
 }
