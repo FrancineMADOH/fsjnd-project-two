@@ -12,7 +12,10 @@ export class productHandler {
         res.status(200)
         return res.json(allproducts)
 
-        }catch(err){console.log(err)}
+        }catch(err){
+res.status(500).json({message: "Internal Server Error"})
+
+            console.log(err)}
         
     }
 
@@ -25,7 +28,9 @@ export class productHandler {
              }
              const newproduct = await product.create(data)
              res.json(newproduct)
-        }catch(err){console.log(err)}
+        }catch(err){
+            res.status(500).json({message: "Internal Server Error"})
+            console.log(err)}
         
 
     }
@@ -44,7 +49,9 @@ export class productHandler {
         const cat =  parseInt(req.params.category) 
         const onecat = await product.category(cat)
         return res.json(onecat)
-        }catch(err){console.log(err)}
+        }catch(err){
+            res.status(500).json({message: "Internal Server Error"})
+            console.log(err)}
         
     }
 
@@ -53,7 +60,9 @@ export class productHandler {
         const id =  parseInt(req.params.id) 
         const delcat = await product.delete(id)
         return res.json(delcat)
-        }catch(err){console.log(err)}
+        }catch(err){
+            res.status(500).json({message: "Internal Server Error"})
+            console.log(err)}
         
     }
 }

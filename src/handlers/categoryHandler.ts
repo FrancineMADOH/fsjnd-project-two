@@ -13,6 +13,7 @@ export class categoryHandler{
         return res.json(newcategory) 
         }catch(err){
             console.log(err)
+             res.status(500).json({message: "Internal Server Error"})
         }
          
     }
@@ -24,6 +25,7 @@ export class categoryHandler{
             return res.json(allcat)
         }catch(err){
             console.log(err)
+             res.status(500).json({message: "Internal Server Error"})
         }
         
     }

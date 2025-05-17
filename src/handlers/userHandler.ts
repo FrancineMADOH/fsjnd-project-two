@@ -13,6 +13,7 @@ export class userHandler {
         return res.json(alluser)
       }catch(err){
         console.log(err)
+        res.status(500).json({message: "Internal Server Error"})
       }
     }
 
@@ -24,6 +25,7 @@ export class userHandler {
         res.json(newuser)
       }catch(err){
         console.log(err)
+        res.status(500).json({message: "Internal Server Error"})
       }
        
     }
@@ -35,6 +37,7 @@ export class userHandler {
         res.json(oneuser)
       }catch(err){
         console.log(err)
+        res.status(500).json({message: "Internal Server Error"})
       }
         
     }
@@ -61,19 +64,20 @@ export class userHandler {
       res.json(userauthToken(data.username) )
       }catch(err){
         console.log(err)
+        res.status(500).json({message: "Internal Server Error"})
       }
         
     }
 
     async update(req:Request,res:Response){
       try{
-      const id = parseInt( req.body.user)
+      const id = req.params.user
       const username = req.body.username
-      const updateuser = await user.update(username,id)
-      res.status(200)
-      res.json(updateuser)
+      const updateuser = await user.update(username,Number(id))
+      res.status(200).json(updateuser)
       }catch(err){
         console.log(err)
+        res.status(500).json({message: "Internal Server Error"})
       }
       
   }

@@ -14,7 +14,7 @@ const swaggerOptions = {
       info: {
         title: "A Storefront Backend",
         version: "1.0.1",
-        description:"  The following rest api simulate the backend of a e-commerce website based on 4 models categories, users, orders, products. A list of the enpoints is available in the REQUIREMENTS.md file",
+        description:"  The following rest api simulate the backend of a e-commerce website based on 4 models categories, users, orders, products. API builded using typescript, express, postgresql. The API is documented using swagger.",
       },
     },
     apis: ["src/routes/api/**/*.ts" ]

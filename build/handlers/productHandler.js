@@ -11,6 +11,7 @@ class productHandler {
             return res.json(allproducts);
         }
         catch (err) {
+            res.status(500).json({ message: "Internal Server Error" });
             console.log(err);
         }
     }
@@ -25,6 +26,7 @@ class productHandler {
             res.json(newproduct);
         }
         catch (err) {
+            res.status(500).json({ message: "Internal Server Error" });
             console.log(err);
         }
     }
@@ -45,6 +47,7 @@ class productHandler {
             return res.json(onecat);
         }
         catch (err) {
+            res.status(500).json({ message: "Internal Server Error" });
             console.log(err);
         }
     }
@@ -55,6 +58,7 @@ class productHandler {
             return res.json(delcat);
         }
         catch (err) {
+            res.status(500).json({ message: "Internal Server Error" });
             console.log(err);
         }
     }

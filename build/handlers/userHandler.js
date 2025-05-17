@@ -12,6 +12,7 @@ class userHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
     async create(req, res) {
@@ -23,6 +24,7 @@ class userHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
     async show(req, res) {
@@ -33,6 +35,7 @@ class userHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
     async signin(req, res) {
@@ -55,18 +58,19 @@ class userHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
     async update(req, res) {
         try {
-            const id = parseInt(req.body.user);
+            const id = req.params.user;
             const username = req.body.username;
-            const updateuser = await user.update(username, id);
-            res.status(200);
-            res.json(updateuser);
+            const updateuser = await user.update(username, Number(id));
+            res.status(200).json(updateuser);
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
 }

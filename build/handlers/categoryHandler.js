@@ -13,6 +13,7 @@ class categoryHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
     async index(req, res) {
@@ -23,6 +24,7 @@ class categoryHandler {
         }
         catch (err) {
             console.log(err);
+            res.status(500).json({ message: "Internal Server Error" });
         }
     }
 }
